@@ -208,14 +208,14 @@
             font-weight: bold;
         }
 
-        /* Interactive Inputs for Presentation Smartboards */
+        /* Interactive Inputs */
         input[type="number"], input[type="text"], select {
             background: #0f172a;
             border: 2px solid var(--border-color);
             color: #ffffff;
-            padding: 10px 16px;
+            padding: 10px 14px;
             border-radius: 12px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             text-align: center;
             transition: all 0.2s;
@@ -233,6 +233,19 @@
             padding: 24px;
             border-radius: 16px;
             margin-top: 25px;
+        }
+
+        .generator-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
         }
 
         .feedback-banner {
@@ -353,6 +366,12 @@
             background: #0f172a;
             color: var(--accent-purple);
         }
+
+        .math-var {
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -361,8 +380,8 @@
     <!-- Presenter Top Bar -->
     <div class="presenter-bar">
         <div class="deck-title">
-            <span>📐 Grade 6 Math Deck</span>
-            <span style="color: var(--text-muted); font-weight: normal;">| Interactive Sequence Lab</span>
+            <span>📐 Teacher Lesson Deck</span>
+            <span style="color: var(--text-muted); font-weight: normal;">| Concept Demonstration</span>
         </div>
         <div class="controls-group">
             <button class="btn-presentation" onclick="toggleTeacherScript()">💡 Teacher Script</button>
@@ -373,58 +392,58 @@
     <!-- SLIDE 1 -->
     <div class="slide-card active" id="slide1">
         <div class="slide-header">
-            <h2 class="slide-title">What is a Sequence and a Term?</h2>
+            <h2 class="slide-title">Concept 1: Sequences & Terms</h2>
             <span class="slide-badge">Slide 1 of 6</span>
         </div>
 
         <div class="hero-definition">
-            A <strong>sequence</strong> is an ordered list of numbers following a mathematical pattern.<br>
-            Each individual number in a sequence is called a <strong>term</strong>.
+            A <strong>sequence</strong> is an ordered set of numbers that grows or shrinks according to a rule.<br>
+            Each number in the sequence is called a <strong>term</strong>.
         </div>
 
         <div class="jump-diagram">
             <div class="term-node">
-                <div class="term-circle">2</div>
+                <div class="term-circle">4</div>
                 <div class="term-label">1st Term</div>
             </div>
             <div class="jump-arrow">
-                <span>+3</span>
+                <span>+5</span>
                 <div class="arrow-head">&rarr;</div>
             </div>
             <div class="term-node">
-                <div class="term-circle">5</div>
+                <div class="term-circle">9</div>
                 <div class="term-label">2nd Term</div>
             </div>
             <div class="jump-arrow">
-                <span>+3</span>
+                <span>+5</span>
                 <div class="arrow-head">&rarr;</div>
             </div>
             <div class="term-node">
-                <div class="term-circle">8</div>
+                <div class="term-circle">14</div>
                 <div class="term-label">3rd Term</div>
             </div>
             <div class="jump-arrow">
-                <span>+3</span>
+                <span>+5</span>
                 <div class="arrow-head">&rarr;</div>
             </div>
             <div class="term-node">
-                <div class="term-circle">11</div>
+                <div class="term-circle">19</div>
                 <div class="term-label">4th Term</div>
             </div>
         </div>
 
         <p style="text-align: center; font-size: 1.25rem; font-weight: 700; color: var(--accent-yellow);">
-            Term-to-Term Rule: "Add 3 each time"
+            Term-to-Term Rule: "Add 5 each time"
         </p>
 
         <div class="teacher-script" id="script1">
-            <strong>🗣️ Teacher Prompt:</strong> "Class, look at the purple circles. Each number is called a <em>term</em>. Notice how the arrows bridge from one number to the next by adding 3. Who can tell me what the 5th term would be?"
+            <strong>🗣️ Demonstration Guide:</strong> "Explain to students that each circle contains a <em>term</em>. Point out how we add 5 to jump from term to term. Ask the class: 'If we add 5 again to 19, what is our 5th term?'"
         </div>
 
         <div class="interactive-section">
-            <p style="font-size: 1.1rem; margin-top: 0;"><strong>Class Check:</strong> Complete the missing terms: <strong>5, 8, 11, 14, <input type="number" id="s1_q1" style="width: 80px;">, <input type="number" id="s1_q2" style="width: 80px;"></strong></p>
-            <p style="font-size: 1.1rem;">Rule: Add <input type="number" id="s1_rule" style="width: 80px;"></p>
-            <button class="btn-nav btn-nav-primary" onclick="checkSlide1()" style="padding: 10px 20px;">Verify Answer</button>
+            <p style="font-size: 1.1rem; margin-top: 0;"><strong>Class Demo Question:</strong> What are the next two terms? <strong>4, 9, 14, 19, <input type="number" id="s1_q1" style="width: 80px;">, <input type="number" id="s1_q2" style="width: 80px;"></strong></p>
+            <p style="font-size: 1.1rem;">Term-to-term rule: Add <input type="number" id="s1_rule" style="width: 80px;"></p>
+            <button class="btn-nav btn-nav-primary" onclick="checkSlide1()" style="padding: 10px 20px;">Reveal Answer</button>
             <div class="feedback-banner" id="fb1"></div>
         </div>
 
@@ -434,36 +453,41 @@
         </div>
     </div>
 
-    <!-- SLIDE 2 -->
+    <!-- SLIDE 2: LIVE VISUAL RULE GENERATOR -->
     <div class="slide-card" id="slide2">
         <div class="slide-header">
-            <h2 class="slide-title">Generating Sequences</h2>
+            <h2 class="slide-title">Concept 2: Live Visual Rule Generator</h2>
             <span class="slide-badge">Slide 2 of 6</span>
         </div>
 
         <div class="hero-definition">
-            If you are given the <strong>Start Term</strong> and the <strong>Operation Rule</strong>, you can calculate any sequence indefinitely.
+            Set a <strong>Start Term</strong> and a <strong>Rule Operation</strong> below to generate a live visual presentation!
         </div>
 
-        <div class="jump-diagram">
-            <div class="term-node"><div class="term-circle">20</div><div class="term-label">1st Term</div></div>
-            <div class="jump-arrow"><span>-4</span><div class="arrow-head">&rarr;</div></div>
-            <div class="term-node"><div class="term-circle">16</div><div class="term-label">2nd Term</div></div>
-            <div class="jump-arrow"><span>-4</span><div class="arrow-head">&rarr;</div></div>
-            <div class="term-node"><div class="term-circle">12</div><div class="term-label">3rd Term</div></div>
-            <div class="jump-arrow"><span>-4</span><div class="arrow-head">&rarr;</div></div>
-            <div class="term-node"><div class="term-circle">8</div><div class="term-label">4th Term</div></div>
+        <div class="generator-controls">
+            <label style="font-weight: bold; font-size: 1.1rem;">Start Term:</label>
+            <input type="number" id="gen_start" value="3" style="width: 90px;" oninput="generateVisualSequence()">
+
+            <label style="font-weight: bold; font-size: 1.1rem; margin-left: 15px;">Operation Rule:</label>
+            <select id="gen_op" onchange="generateVisualSequence()" style="width: 160px;">
+                <option value="+">Add (+)</option>
+                <option value="-">Subtract (&minus;)</option>
+                <option value="*">Multiply (&times;)</option>
+            </select>
+            <input type="number" id="gen_num" value="4" style="width: 90px;" oninput="generateVisualSequence()">
         </div>
+
+        <!-- Dynamic Jump Diagram Container -->
+        <div class="jump-diagram" id="gen_diagram">
+            <!-- Dynamically populated via JavaScript -->
+        </div>
+
+        <p style="text-align: center; font-size: 1.3rem; font-weight: 700; color: var(--accent-yellow);" id="gen_rule_label">
+            Term-to-Term Rule: "Add 4 each time"
+        </p>
 
         <div class="teacher-script" id="script2">
-            <strong>🗣️ Teacher Prompt:</strong> "Sequences don't just grow with addition—they can also decrease with subtraction or grow rapidly with multiplication!"
-        </div>
-
-        <div class="interactive-section">
-            <p><strong>1.</strong> Start Term = <strong>4</strong>, Rule = <strong>Multiply by 2</strong> &rarr; First 3 terms: 4, <input type="number" id="s2_q1" style="width: 80px;">, <input type="number" id="s2_q2" style="width: 80px;"></p>
-            <p><strong>2.</strong> Start Term = <strong>30</strong>, Rule = <strong>Subtract 6</strong> &rarr; First 3 terms: 30, <input type="number" id="s2_q3" style="width: 80px;">, <input type="number" id="s2_q4" style="width: 80px;"></p>
-            <button class="btn-nav btn-nav-primary" onclick="checkSlide2()" style="padding: 10px 20px;">Check Work</button>
-            <div class="feedback-banner" id="fb2"></div>
+            <strong>🗣️ Demonstration Guide:</strong> "Change the numbers live in front of the class! Ask students to predict the 4th term before typing in the start term and rule."
         </div>
 
         <div class="deck-nav">
@@ -475,38 +499,38 @@
     <!-- SLIDE 3 -->
     <div class="slide-card" id="slide3">
         <div class="slide-header">
-            <h2 class="slide-title">Function Machines & Reverse Operations</h2>
+            <h2 class="slide-title">Concept 3: Reverse Function Machines</h2>
             <span class="slide-badge">Slide 3 of 6</span>
         </div>
 
-        <p style="font-size: 1.2rem;">Function machines process numbers forward. To solve <strong>backwards</strong>, invert each operation in reverse order!</p>
+        <p style="font-size: 1.2rem;">Function machines convert inputs into outputs. To find an unknown starting term, build a <strong>Reverse Machine</strong> with inverse operations!</p>
 
         <div class="interactive-section">
-            <h4 style="margin-top: 0; color: var(--accent-purple);">Forward Machine (&rarr;)</h4>
+            <h4 style="margin-top: 0; color: var(--accent-purple);">Forward Function Machine (&rarr;)</h4>
             <div class="machine-flow">
                 <div class="term-node"><div class="term-circle">5</div><div class="term-label">Input</div></div>
                 <span style="font-size: 1.5rem;">&rarr;</span>
-                <div class="machine-gear">&times; 3</div>
+                <div class="machine-gear">&times; 4</div>
                 <span style="font-size: 1.5rem;">&rarr;</span>
-                <div class="machine-gear">+ 2</div>
+                <div class="machine-gear">&minus; 3</div>
                 <span style="font-size: 1.5rem;">&rarr;</span>
                 <div class="term-node"><div class="term-circle" style="background: var(--accent-green);">17</div><div class="term-label">Output</div></div>
             </div>
 
-            <h4 style="margin-top: 20px; color: var(--accent-green);">Reverse Machine (&larr;)</h4>
+            <h4 style="margin-top: 20px; color: var(--accent-green);">Reverse Function Machine (&larr;)</h4>
             <div class="machine-flow">
-                <div class="term-node"><div class="term-circle">5</div><div class="term-label">Calculated Input</div></div>
+                <div class="term-node"><div class="term-circle">5</div><div class="term-label">Original Input</div></div>
                 <span style="font-size: 1.5rem; color: var(--accent-green);">&larr;</span>
-                <div class="machine-gear reverse">&divide; 3</div>
+                <div class="machine-gear reverse">&divide; 4</div>
                 <span style="font-size: 1.5rem; color: var(--accent-green);">&larr;</span>
-                <div class="machine-gear reverse">&minus; 2</div>
+                <div class="machine-gear reverse">+ 3</div>
                 <span style="font-size: 1.5rem; color: var(--accent-green);">&larr;</span>
-                <div class="term-node"><div class="term-circle" style="background: var(--accent-green);">17</div><div class="term-label">Start Output</div></div>
+                <div class="term-node"><div class="term-circle" style="background: var(--accent-green);">17</div><div class="term-label">Target Output</div></div>
             </div>
         </div>
 
         <div class="teacher-script" id="script3">
-            <strong>🗣️ Teacher Prompt:</strong> "Notice how the last step in the forward machine (+2) becomes the VERY FIRST step to undo (-2) in reverse!"
+            <strong>🗣️ Demonstration Guide:</strong> "Emphasize two key rules for working backward: 1) Invert operations (&times; becomes &divide;, &minus; becomes +), and 2) Work backward right-to-left!"
         </div>
 
         <div class="deck-nav">
@@ -518,18 +542,18 @@
     <!-- SLIDE 4 -->
     <div class="slide-card" id="slide4">
         <div class="slide-header">
-            <h2 class="slide-title">Position-to-Term Rules</h2>
+            <h2 class="slide-title">Concept 4: Position-to-Term Rules</h2>
             <span class="slide-badge">Slide 4 of 6</span>
         </div>
 
         <div class="hero-definition">
-            A <strong>Position-to-Term Rule</strong> lets you calculate ANY term (like the 100th term) directly using its position number (<span style="color: var(--accent-purple);">n</span>)!
+            Instead of adding step-by-step, a <strong>Position-to-Term Rule</strong> lets us calculate any term directly from its position number (<span class="math-var">n</span>).
         </div>
 
         <table>
             <thead>
                 <tr>
-                    <th>Position (<span style="color: var(--accent-purple);">n</span>)</th>
+                    <th>Position (<span class="math-var">n</span>)</th>
                     <th>1</th>
                     <th>2</th>
                     <th>3</th>
@@ -539,16 +563,16 @@
             <tbody>
                 <tr>
                     <td><strong>Term Value</strong></td>
-                    <td>2</td>
-                    <td>4</td>
+                    <td>3</td>
                     <td>6</td>
+                    <td>9</td>
                     <td><input type="number" id="s4_t1" style="width: 80px;"></td>
                 </tr>
                 <tr>
                     <td><strong>Calculation</strong></td>
-                    <td>2 &times; 1 = 2</td>
-                    <td>2 &times; 2 = 4</td>
-                    <td>2 &times; 3 = 6</td>
+                    <td>3 &times; 1 = 3</td>
+                    <td>3 &times; 2 = 6</td>
+                    <td>3 &times; 3 = 9</td>
                     <td><input type="number" id="s4_t2" style="width: 80px;"></td>
                 </tr>
             </tbody>
@@ -569,27 +593,27 @@
         </div>
     </div>
 
-    <!-- SLIDE 5 -->
+    <!-- SLIDE 5: CLEAN FORMULA (NO LATEX RAW TAGS) -->
     <div class="slide-card" id="slide5">
         <div class="slide-header">
-            <h2 class="slide-title">Mastering the Rule (dn + c)</h2>
+            <h2 class="slide-title">Concept 5: Deriving Linear Rules (d &middot; n + c)</h2>
             <span class="slide-badge">Slide 5 of 6</span>
         </div>
 
         <div class="hero-definition">
-            <strong>Formula Guide:</strong> $\text{Term} = \mathbf{d \cdot n + c}$
-            <br><small style="color: var(--text-muted);">&bull; $d$ = Common Difference between terms &nbsp;|&nbsp; &bull; $c$ = Adjustment constant</small>
+            <strong>Formula Guide:</strong> <span style="font-size: 1.4rem; color: var(--accent-yellow);">Term = <strong>d &middot; n + c</strong></span>
+            <br><small style="color: var(--text-muted);">&bull; <strong>d</strong> = Common Difference between terms &nbsp;|&nbsp; &bull; <strong>c</strong> = Adjustment constant</small>
         </div>
 
         <div class="interactive-section">
-            <p>For the sequence: <strong>4, 9, 14, 19, 24, ...</strong></p>
-            <p>1. Common Difference ($d$): <input type="number" id="s5_d" style="width: 80px;"></p>
+            <p>Demonstration Sequence: <strong>4, 10, 16, 22, 28, ...</strong></p>
+            <p>1. Common Difference (<strong>d</strong>): <input type="number" id="s5_d" style="width: 80px;"></p>
             <p>2. Select the correct position-to-term rule:</p>
             <select id="s5_sel" style="width: 100%; max-width: 350px;">
                 <option value="">-- Select Rule --</option>
-                <option value="A">Term = 4n + 1</option>
-                <option value="B">Term = 5n - 1</option>
-                <option value="C">Term = 5n + 1</option>
+                <option value="A">Term = 6n + 2</option>
+                <option value="B">Term = 6n - 2</option>
+                <option value="C">Term = 4n + 2</option>
             </select>
             <br><br>
             <button class="btn-nav btn-nav-primary" onclick="checkSlide5()">Validate Rule</button>
@@ -605,25 +629,22 @@
     <!-- SLIDE 6 -->
     <div class="slide-card" id="slide6">
         <div class="slide-header">
-            <h2 class="slide-title">Final Master Challenge</h2>
+            <h2 class="slide-title">Class Demo Summary</h2>
             <span class="slide-badge">Slide 6 of 6</span>
         </div>
 
+        <div class="hero-definition">
+            <strong>Ready for the Activity!</strong><br>
+            Students will now apply these exact concepts on their practice worksheet using new problem sets.
+        </div>
+
         <div class="interactive-section">
-            <p style="font-size: 1.2rem;">Given the sequence: <strong>3, 7, 11, 15, 19, ...</strong></p>
-
-            <p><strong>A.</strong> Term-to-term rule: <input type="text" id="s6_q1" placeholder="e.g. Add 4" style="width: 160px;"></p>
-            <p><strong>B.</strong> Algebraic rule:</p>
-            <select id="s6_q2" style="width: 100%; max-width: 350px;">
-                <option value="">-- Choose Rule --</option>
-                <option value="A">Term = 3n + 1</option>
-                <option value="B">Term = 4n - 1</option>
-                <option value="C">Term = 4n + 3</option>
-            </select>
-            <p><strong>C.</strong> Calculate the <strong>50th term</strong>: <input type="number" id="s6_q3" style="width: 100px;"></p>
-
-            <button class="btn-nav btn-nav-primary" onclick="checkSlide6()">Submit Final Quiz</button>
-            <div class="feedback-banner" id="fb6"></div>
+            <h3 style="margin-top:0; color: var(--accent-purple);">Key Concepts Covered Today:</h3>
+            <ul style="font-size: 1.15rem; line-height: 1.8;">
+                <li><strong>Term-to-term rule:</strong> How to move from one term to the next.</li>
+                <li><strong>Function Machines:</strong> Inverting operations to solve backward.</li>
+                <li><strong>Position-to-term rule (d &middot; n + c):</strong> Finding any term directly using position number (<span class="math-var">n</span>).</li>
+            </ul>
         </div>
 
         <div class="deck-nav">
@@ -663,7 +684,7 @@
         }
     }
 
-    // Keyboard controls for presenter remotes
+    // Keyboard navigation
     document.addEventListener('keydown', function(e) {
         if (e.key === 'ArrowRight' || e.key === 'Space') {
             changeSlide(1);
@@ -679,30 +700,52 @@
         const rule = parseFloat(document.getElementById('s1_rule').value);
         const fb = document.getElementById('fb1');
 
-        if (q1 === 17 && q2 === 20 && rule === 3) {
+        if (q1 === 24 && q2 === 29 && rule === 5) {
             fb.className = "feedback-banner correct";
-            fb.innerText = "Correct! The sequence increases by 3 each term (14 + 3 = 17, 17 + 3 = 20).";
+            fb.innerText = "Correct! The sequence increases by 5 each term (19 + 5 = 24, 24 + 5 = 29).";
         } else {
             fb.className = "feedback-banner incorrect";
-            fb.innerText = "Re-check: Notice the difference between 5 and 8 is +3. Add 3 to 14!";
+            fb.innerText = "Re-check: The difference between terms is +5. Add 5 to 19!";
         }
     }
 
-    // Slide 2 Validation
-    function checkSlide2() {
-        const q1 = parseFloat(document.getElementById('s2_q1').value);
-        const q2 = parseFloat(document.getElementById('s2_q2').value);
-        const q3 = parseFloat(document.getElementById('s2_q3').value);
-        const q4 = parseFloat(document.getElementById('s2_q4').value);
-        const fb = document.getElementById('fb2');
+    // Slide 2 Live Generator Script
+    function generateVisualSequence() {
+        const start = parseFloat(document.getElementById('gen_start').value) || 0;
+        const op = document.getElementById('gen_op').value;
+        const num = parseFloat(document.getElementById('gen_num').value) || 0;
 
-        if (q1 === 8 && q2 === 16 && q3 === 24 && q4 === 18) {
-            fb.className = "feedback-banner correct";
-            fb.innerText = "Perfect! 4 x 2 = 8, 8 x 2 = 16 | 30 - 6 = 24, 24 - 6 = 18.";
-        } else {
-            fb.className = "feedback-banner incorrect";
-            fb.innerText = "Check your calculations carefully.";
+        let terms = [start];
+        for (let i = 0; i < 3; i++) {
+            let last = terms[terms.length - 1];
+            if (op === '+') terms.push(last + num);
+            else if (op === '-') terms.push(last - num);
+            else if (op === '*') terms.push(last * num);
         }
+
+        let opSymbol = op === '*' ? '&times;' : (op === '-' ? '&minus;' : '+');
+        let opWord = op === '*' ? 'Multiply by' : (op === '-' ? 'Subtract' : 'Add');
+
+        let diagramHTML = '';
+        for (let i = 0; i < terms.length; i++) {
+            diagramHTML += `
+                <div class="term-node">
+                    <div class="term-circle">${terms[i]}</div>
+                    <div class="term-label">${i + 1}st Term</div>
+                </div>
+            `;
+            if (i < terms.length - 1) {
+                diagramHTML += `
+                    <div class="jump-arrow">
+                        <span>${opSymbol}${num}</span>
+                        <div class="arrow-head">&rarr;</div>
+                    </div>
+                `;
+            }
+        }
+
+        document.getElementById('gen_diagram').innerHTML = diagramHTML;
+        document.getElementById('gen_rule_label').innerHTML = `Term-to-Term Rule: "${opWord} ${num} each time"`;
     }
 
     // Slide 4 Validation
@@ -712,12 +755,12 @@
         const rule = parseInt(document.getElementById('s4_rule').value);
         const fb = document.getElementById('fb4');
 
-        if (t1 === 8 && t2 === 8 && rule === 2) {
+        if (t1 === 12 && t2 === 12 && rule === 3) {
             fb.className = "feedback-banner correct";
-            fb.innerText = "Spot on! 4 x 2 = 8 dots, so the position multiplier is 2.";
+            fb.innerText = "Correct! 4 x 3 = 12, so the position multiplier is 3.";
         } else {
             fb.className = "feedback-banner incorrect";
-            fb.innerText = "Check Pattern 4: 2 x 4 = 8 dots.";
+            fb.innerText = "Check position 4: 4 x 3 = 12.";
         }
     }
 
@@ -727,30 +770,19 @@
         const sel = document.getElementById('s5_sel').value;
         const fb = document.getElementById('fb5');
 
-        if (d === 5 && sel === 'B') {
+        if (d === 6 && sel === 'B') {
             fb.className = "feedback-banner correct";
-            fb.innerText = "Correct! Difference = 5 (5n). Since 5(1) - 1 = 4, the rule is 5n - 1.";
+            fb.innerText = "Correct! Difference = 6 (6n). Since 6(1) - 2 = 4, the rule is 6n - 2.";
         } else {
             fb.className = "feedback-banner incorrect";
-            fb.innerText = "Difference is 9 - 4 = 5. So rule starts with 5n.";
+            fb.innerText = "Difference is 10 - 4 = 6. So rule starts with 6n.";
         }
     }
 
-    // Slide 6 Validation
-    function checkSlide6() {
-        const q1 = document.getElementById('s6_q1').value.trim().toLowerCase();
-        const q2 = document.getElementById('s6_q2').value;
-        const q3 = parseInt(document.getElementById('s6_q3').value);
-        const fb = document.getElementById('fb6');
-
-        if ((q1.includes('add 4') || q1.includes('+4')) && q2 === 'B' && q3 === 199) {
-            fb.className = "feedback-banner correct";
-            fb.innerText = "🎉 Mastered! You solved all sequence rules accurately!";
-        } else {
-            fb.className = "feedback-banner incorrect";
-            fb.innerText = "Notes: Difference = +4, Rule = 4n - 1, 50th Term = 4(50) - 1 = 199.";
-        }
-    }
+    // Initial Generator Call on Load
+    window.onload = function() {
+        generateVisualSequence();
+    };
 </script>
 
 </body>
