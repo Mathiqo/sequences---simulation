@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 6 Math Lab: Master Sequences & Rules</title>
+    <title>Grade 6 Math Deck: Teaching Sequences & Rules</title>
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #1e293b;
-            --success: #059669;
-            --error: #dc2626;
-            --accent: #d97706;
-            --accent-bg: #fef3c7;
-            --reverse: #0284c7;
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent-purple: #818cf8;
+            --accent-purple-glow: rgba(129, 140, 248, 0.25);
+            --accent-yellow: #f59e0b;
+            --accent-green: #10b981;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
         }
 
         * {
@@ -24,121 +23,138 @@
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             line-height: 1.6;
             margin: 0;
             padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .container {
-            max-width: 900px;
+        .deck-container {
+            max-width: 1050px;
             margin: 0 auto;
+            width: 100%;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            color: var(--primary);
-            margin: 0 0 5px 0;
-            font-size: 2rem;
-        }
-
-        /* Classroom Toolbar */
-        .teacher-toolbar {
+        /* Top Presenter Bar */
+        .presenter-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #ffffff;
-            padding: 10px 18px;
-            border-radius: 12px;
-            border: 1px solid #cbd5e1;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: #1e293b;
+            padding: 12px 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
             margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
-        .slide-select-group {
+        .deck-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-purple);
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: 600;
         }
 
-        .progress-bar-container {
-            width: 100%;
-            background-color: #e2e8f0;
+        .controls-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-presentation {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border: none;
+            padding: 8px 16px;
             border-radius: 10px;
-            height: 12px;
-            margin-bottom: 25px;
-            overflow: hidden;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.1s, box-shadow 0.2s;
         }
 
-        .progress-bar {
-            height: 100%;
-            width: 16.66%;
-            background-color: var(--primary);
-            transition: width 0.4s ease;
+        .btn-presentation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-purple-glow);
         }
 
-        .step-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        /* Slide Container */
+        .slide-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             display: none;
-            border: 1px solid #e2e8f0;
+            min-height: 580px;
+            position: relative;
         }
 
-        .step-card.active {
+        .slide-card.active {
             display: block;
+            animation: fadeIn 0.3s ease-out;
         }
 
-        .tag {
-            display: inline-block;
-            background-color: #e0e7ff;
-            color: var(--primary);
-            padding: 6px 14px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 28px;
+        }
+
+        .slide-badge {
+            background: rgba(129, 140, 248, 0.15);
+            color: var(--accent-purple);
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 0.9rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            font-size: 0.9rem;
+            border: 1px solid var(--accent-purple);
         }
 
-        .tip-box {
-            background-color: #f0fdf4;
-            border-left: 5px solid var(--success);
-            padding: 14px 18px;
-            margin: 18px 0;
-            border-radius: 0 10px 10px 0;
-            font-size: 0.95rem;
+        h2.slide-title {
+            font-size: 2.2rem;
+            margin: 0;
+            color: #ffffff;
+            letter-spacing: -0.5px;
         }
 
-        .tip-box.secret {
-            background-color: #fffbebf8;
-            border-left-color: var(--accent);
+        .hero-definition {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 6px solid var(--accent-purple);
+            padding: 20px 24px;
+            border-radius: 0 16px 16px 0;
+            font-size: 1.25rem;
+            margin-bottom: 30px;
         }
 
-        .interactive-box {
-            background-color: #f8fafc;
-            border: 2px solid #e2e8f0;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 12px;
-        }
-
-        /* Diagram Elements */
+        /* Large Screen Visual Jump Diagram */
         .jump-diagram {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin: 20px 0;
-            flex-wrap: wrap;
+            gap: 20px;
+            margin: 35px 0;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
         }
 
         .term-node {
@@ -148,28 +164,24 @@
         }
 
         .term-circle {
-            width: 56px;
-            height: 56px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
-            background-color: var(--primary);
+            background: linear-gradient(135deg, #6366f1, #4338ca);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
-            transition: transform 0.2s ease;
-        }
-
-        .term-circle:hover {
-            transform: scale(1.1);
+            font-size: 1.8rem;
+            font-weight: 800;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         .term-label {
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-top: 6px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 10px;
             font-weight: 600;
         }
 
@@ -177,492 +189,351 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: var(--accent);
-            font-weight: bold;
+            color: var(--accent-yellow);
         }
 
         .jump-arrow span {
-            font-size: 0.85rem;
-            background-color: var(--accent-bg);
+            background: #fef3c7;
             color: #b45309;
-            padding: 3px 10px;
-            border-radius: 12px;
-            border: 1px solid #fcd34d;
+            padding: 4px 14px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 800;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
         .arrow-head {
-            font-size: 1.3rem;
-            line-height: 1;
-        }
-
-        /* Machine Simulator */
-        .machine-wrapper {
-            background: #ffffff;
-            border: 2px solid #cbd5e1;
-            border-radius: 14px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .machine-flow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 15px 0;
-        }
-
-        .machine-gear {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            color: white;
-            padding: 12px 18px;
-            border-radius: 10px;
-            font-weight: bold;
-            text-align: center;
-            min-width: 95px;
-            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.25);
-        }
-
-        .machine-gear.reverse-gear {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        }
-
-        .builder-slot {
-            background: #ffffff;
-            border: 2px dashed #94a3b8;
-            padding: 8px 12px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .flow-arrow {
-            font-size: 1.5rem;
-            color: #94a3b8;
+            font-size: 1.8rem;
+            margin-top: -4px;
             font-weight: bold;
         }
 
-        .flow-arrow.reverse {
-            color: #10b981;
-        }
-
-        /* Dot Pattern Explorer */
-        .pattern-display {
-            display: flex;
-            align-items: flex-end;
-            gap: 20px;
-            justify-content: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-
-        .pattern-item {
-            text-align: center;
-            background: #ffffff;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid #cbd5e1;
-        }
-
-        .dots-grid {
-            display: grid;
-            gap: 6px;
-            background: #f8fafc;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            justify-content: center;
-        }
-
-        .dot {
-            width: 18px;
-            height: 18px;
-            background-color: var(--primary);
-            border-radius: 50%;
-        }
-
-        .dot.new-dot {
-            background-color: var(--accent);
-        }
-
-        /* Control Sliders & Inputs */
-        .control-panel {
-            background: #f1f5f9;
-            padding: 16px;
-            border-radius: 12px;
-            margin: 15px 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .slider-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .slider-group label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #475569;
-        }
-
+        /* Interactive Inputs for Presentation Smartboards */
         input[type="number"], input[type="text"], select {
-            padding: 8px 12px;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 1rem;
+            background: #0f172a;
+            border: 2px solid var(--border-color);
+            color: #ffffff;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
             text-align: center;
-            background-color: #ffffff;
+            transition: all 0.2s;
         }
 
         input:focus, select:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px var(--accent-purple-glow);
         }
 
-        button.btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 22px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
+        .interactive-section {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 16px;
+            margin-top: 25px;
         }
 
-        button.btn:hover {
-            background-color: var(--primary-hover);
-        }
-
-        button.btn-secondary {
-            background-color: #64748b;
-        }
-
-        button.btn-secondary:hover {
-            background-color: #475569;
-        }
-
-        .feedback {
-            margin-top: 15px;
-            font-weight: 600;
-            padding: 12px 16px;
-            border-radius: 8px;
+        .feedback-banner {
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 20px;
             display: none;
         }
 
-        .feedback.correct {
-            background-color: #dcfce7;
-            color: var(--success);
-            border: 1px solid #86efac;
+        .feedback-banner.correct {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--accent-green);
+            color: #34d399;
             display: block;
         }
 
-        .feedback.incorrect {
-            background-color: #fee2e2;
-            color: var(--error);
-            border: 1px solid #fca5a5;
+        .feedback-banner.incorrect {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #f87171;
             display: block;
         }
 
-        .nav-buttons {
+        /* Bottom Deck Nav Controls */
+        .deck-nav {
             display: flex;
             justify-content: space-between;
-            margin-top: 25px;
+            align-items: center;
+            margin-top: 28px;
+        }
+
+        .btn-nav {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-nav:hover {
+            background: #475569;
+        }
+
+        .btn-nav-primary {
+            background: var(--accent-purple);
+        }
+
+        .btn-nav-primary:hover {
+            background: #6366f1;
+        }
+
+        /* Teacher Script Collapsible */
+        .teacher-script {
+            background: #0f172a;
+            border: 1px dashed var(--accent-yellow);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #fcd34d;
+            display: none;
+        }
+
+        .teacher-script.visible {
+            display: block;
+        }
+
+        /* Machine Simulator */
+        .machine-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .machine-gear {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            min-width: 110px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .machine-gear.reverse {
+            background: linear-gradient(135deg, #10b981, #059669);
         }
 
         table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            margin: 15px 0;
-            border-radius: 10px;
+            margin: 20px 0;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #cbd5e1;
+            border: 1px solid var(--border-color);
         }
 
         th, td {
-            border-right: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 10px 12px;
+            padding: 14px;
             text-align: center;
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.1rem;
         }
 
         th {
-            background-color: #f8fafc;
-            color: #334155;
-        }
-
-        .math-var {
-            font-family: Georgia, serif;
-            font-style: italic;
-            font-weight: bold;
+            background: #0f172a;
+            color: var(--accent-purple);
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Grade 6 Math Lab</h1>
-        <p style="margin: 0; color: #64748b;">Interactive Sequence & Function Machine Explorer</p>
-    </header>
-
-    <!-- Classroom Presentation Toolbar -->
-    <div class="teacher-toolbar">
-        <div class="slide-select-group">
-            <label for="stepSelector">Jump to Section:</label>
-            <select id="stepSelector" onchange="goToStep(parseInt(this.value))" style="width: auto;">
-                <option value="1">1. Sequences & Terms</option>
-                <option value="2">3. Function Machines</option>
-                <option value="3">3. Reverse Machines</option>
-                <option value="4">4. Pattern Dot Models</option>
-                <option value="5">5. Position-to-Term Lab</option>
-                <option value="6">6. Final Quiz Challenge</option>
-            </select>
+<div class="deck-container">
+    <!-- Presenter Top Bar -->
+    <div class="presenter-bar">
+        <div class="deck-title">
+            <span>📐 Teacher Lesson Deck</span>
+            <span style="color: var(--text-muted); font-weight: normal;">| Concept Demonstration</span>
         </div>
-        <div>
-            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="resetCurrentStep()">Reset Interactive Tools</button>
+        <div class="controls-group">
+            <button class="btn-presentation" onclick="toggleTeacherScript()">💡 Teacher Script</button>
+            <button class="btn-presentation" onclick="toggleFullScreen()">📺 Presentation Mode</button>
         </div>
     </div>
 
-    <div class="progress-bar-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+    <!-- SLIDE 1 -->
+    <div class="slide-card active" id="slide1">
+        <div class="slide-header">
+            <h2 class="slide-title">Concept 1: Sequences & Terms</h2>
+            <span class="slide-badge">Slide 1 of 6</span>
+        </div>
 
-    <!-- STEP 1 -->
-    <div class="step-card active" id="step1">
-        <span class="tag">Lesson 1 of 6</span>
-        <h2>What is a Sequence and a Term?</h2>
-        <p>A <strong>sequence</strong> is a list of numbers arranged in a specific pattern order.</p>
-        <p>Each individual number in a sequence is called a <strong>term</strong>.</p>
-        
-        <div class="interactive-box">
-            <h4 style="margin-top: 0;">Visual Jump Model: Start at 2 and "Add 3"</h4>
-            <div class="jump-diagram">
-                <div class="term-node">
-                    <div class="term-circle">2</div>
-                    <div class="term-label">1st Term</div>
-                </div>
-                <div class="jump-arrow">
-                    <span>+3</span>
-                    <div class="arrow-head">&rarr;</div>
-                </div>
-                <div class="term-node">
-                    <div class="term-circle">5</div>
-                    <div class="term-label">2nd Term</div>
-                </div>
-                <div class="jump-arrow">
-                    <span>+3</span>
-                    <div class="arrow-head">&rarr;</div>
-                </div>
-                <div class="term-node">
-                    <div class="term-circle">8</div>
-                    <div class="term-label">3rd Term</div>
-                </div>
-                <div class="jump-arrow">
-                    <span>+3</span>
-                    <div class="arrow-head">&rarr;</div>
-                </div>
-                <div class="term-node">
-                    <div class="term-circle">11</div>
-                    <div class="term-label">4th Term</div>
-                </div>
+        <div class="hero-definition">
+            A <strong>sequence</strong> is an ordered set of numbers that grows or shrinks according to a rule.<br>
+            Each number in the sequence is called a <strong>term</strong>.
+        </div>
+
+        <!-- DEMO EXAMPLE 1: Jumps of +5 -->
+        <div class="jump-diagram">
+            <div class="term-node">
+                <div class="term-circle">4</div>
+                <div class="term-label">1st Term</div>
             </div>
-            <p style="text-align: center; margin-bottom: 0;">The <strong>term-to-term rule</strong> is: <strong>"Add 3 each time"</strong>.</p>
+            <div class="jump-arrow">
+                <span>+5</span>
+                <div class="arrow-head">&rarr;</div>
+            </div>
+            <div class="term-node">
+                <div class="term-circle">9</div>
+                <div class="term-label">2nd Term</div>
+            </div>
+            <div class="jump-arrow">
+                <span>+5</span>
+                <div class="arrow-head">&rarr;</div>
+            </div>
+            <div class="term-node">
+                <div class="term-circle">14</div>
+                <div class="term-label">3rd Term</div>
+            </div>
+            <div class="jump-arrow">
+                <span>+5</span>
+                <div class="arrow-head">&rarr;</div>
+            </div>
+            <div class="term-node">
+                <div class="term-circle">19</div>
+                <div class="term-label">4th Term</div>
+            </div>
         </div>
 
-        <div class="tip-box">
-            <strong>💡 Key Takeaway:</strong> A term-to-term rule tells you how to jump from the <em>current number</em> directly to the <em>next number</em>.
+        <p style="text-align: center; font-size: 1.25rem; font-weight: 700; color: var(--accent-yellow);">
+            Term-to-Term Rule: "Add 5 each time"
+        </p>
+
+        <div class="teacher-script" id="script1">
+            <strong>🗣️ Demonstration Guide:</strong> "Explain to students that each circle contains a <em>term</em>. Point out how we add 5 to jump from term to term. Ask the class: 'If we add 5 again to 19, what is our 5th term?'"
         </div>
 
-        <h3>Interactive Practice:</h3>
-        <p>Complete the missing terms for this sequence: <strong>5, 8, 11, 14, <input type="number" id="s1_q1" style="width: 70px;">, <input type="number" id="s1_q2" style="width: 70px;"></strong></p>
-        <p>What is the term-to-term rule? Add <input type="number" id="s1_rule" style="width: 70px;"></p>
+        <div class="interactive-section">
+            <p style="font-size: 1.1rem; margin-top: 0;"><strong>Class Demo Question:</strong> What are the next two terms? <strong>4, 9, 14, 19, <input type="number" id="s1_q1" style="width: 80px;">, <input type="number" id="s1_q2" style="width: 80px;"></strong></p>
+            <p style="font-size: 1.1rem;">Term-to-term rule: Add <input type="number" id="s1_rule" style="width: 80px;"></p>
+            <button class="btn-nav btn-nav-primary" onclick="checkSlide1()" style="padding: 10px 20px;">Reveal Answer</button>
+            <div class="feedback-banner" id="fb1"></div>
+        </div>
 
-        <button class="btn" onclick="checkStep1()">Check Answer</button>
-        <div class="feedback" id="fb1"></div>
-
-        <div class="nav-buttons">
+        <div class="deck-nav">
             <div></div>
-            <button class="btn" id="next1" style="display:none;" onclick="goToStep(2)">Next Lesson &rarr;</button>
+            <button class="btn-nav btn-nav-primary" onclick="changeSlide(1)">Next Slide &rarr;</button>
         </div>
     </div>
 
-    <!-- STEP 2 -->
-    <div class="step-card" id="step2">
-        <span class="tag">Lesson 2 of 6</span>
-        <h2>Generating Sequences with Operations</h2>
-        <p>If you know the <strong>first term</strong> and the <strong>rule</strong>, you can build any sequence step-by-step!</p>
-
-        <div class="interactive-box">
-            <h4 style="margin-top: 0;">Example: Start at 20, Rule = "Subtract 4"</h4>
-            <div class="jump-diagram">
-                <div class="term-node"><div class="term-circle">20</div><div class="term-label">1st</div></div>
-                <div class="jump-arrow"><span>-4</span><div class="arrow-head">&rarr;</div></div>
-                <div class="term-node"><div class="term-circle">16</div><div class="term-label">2nd</div></div>
-                <div class="jump-arrow"><span>-4</span><div class="arrow-head">&rarr;</div></div>
-                <div class="term-node"><div class="term-circle">12</div><div class="term-label">3rd</div></div>
-                <div class="jump-arrow"><span>-4</span><div class="arrow-head">&rarr;</div></div>
-                <div class="term-node"><div class="term-circle">8</div><div class="term-label">4th</div></div>
-            </div>
+    <!-- SLIDE 2 -->
+    <div class="slide-card" id="slide2">
+        <div class="slide-header">
+            <h2 class="slide-title">Concept 2: Generating Sequences</h2>
+            <span class="slide-badge">Slide 2 of 6</span>
         </div>
 
-        <h3>Practice Sequence Builders:</h3>
-        <p><strong>1.</strong> 1st Term = <strong>4</strong>, Rule = <strong>Multiply by 2</strong></p>
-        <p>First 3 terms: 4, <input type="number" id="s2_q1" style="width: 70px;">, <input type="number" id="s2_q2" style="width: 70px;"></p>
+        <div class="hero-definition">
+            Given a <strong>Start Term</strong> and a <strong>Rule</strong>, we can generate a sequence forward.
+        </div>
 
-        <p><strong>2.</strong> 1st Term = <strong>30</strong>, Rule = <strong>Subtract 6</strong></p>
-        <p>First 3 terms: 30, <input type="number" id="s2_q3" style="width: 70px;">, <input type="number" id="s2_q4" style="width: 70px;"></p>
+        <!-- DEMO EXAMPLE 2: Decreasing sequence -->
+        <div class="jump-diagram">
+            <div class="term-node"><div class="term-circle">50</div><div class="term-label">1st Term</div></div>
+            <div class="jump-arrow"><span>-7</span><div class="arrow-head">&rarr;</div></div>
+            <div class="term-node"><div class="term-circle">43</div><div class="term-label">2nd Term</div></div>
+            <div class="jump-arrow"><span>-7</span><div class="arrow-head">&rarr;</div></div>
+            <div class="term-node"><div class="term-circle">36</div><div class="term-label">3rd Term</div></div>
+            <div class="jump-arrow"><span>-7</span><div class="arrow-head">&rarr;</div></div>
+            <div class="term-node"><div class="term-circle">29</div><div class="term-label">4th Term</div></div>
+        </div>
 
-        <button class="btn" onclick="checkStep2()">Check Answers</button>
-        <div class="feedback" id="fb2"></div>
+        <div class="teacher-script" id="script2">
+            <strong>🗣️ Demonstration Guide:</strong> "Show students that rules can involve subtraction (shrinking sequences) or multiplication (rapidly growing sequences)."
+        </div>
 
-        <div class="nav-buttons">
-            <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
-            <button class="btn" id="next2" style="display:none;" onclick="goToStep(3)">Next Lesson &rarr;</button>
+        <div class="interactive-section">
+            <p><strong>1.</strong> Start Term = <strong>2</strong>, Rule = <strong>Multiply by 3</strong> &rarr; First 3 terms: 2, <input type="number" id="s2_q1" style="width: 80px;">, <input type="number" id="s2_q2" style="width: 80px;"></p>
+            <p><strong>2.</strong> Start Term = <strong>40</strong>, Rule = <strong>Subtract 8</strong> &rarr; First 3 terms: 40, <input type="number" id="s2_q3" style="width: 80px;">, <input type="number" id="s2_q4" style="width: 80px;"></p>
+            <button class="btn-nav btn-nav-primary" onclick="checkSlide2()" style="padding: 10px 20px;">Check Answers</button>
+            <div class="feedback-banner" id="fb2"></div>
+        </div>
+
+        <div class="deck-nav">
+            <button class="btn-nav" onclick="changeSlide(-1)">&larr; Previous</button>
+            <button class="btn-nav btn-nav-primary" onclick="changeSlide(1)">Next Slide &rarr;</button>
         </div>
     </div>
 
-    <!-- STEP 3 -->
-    <div class="step-card" id="step3">
-        <span class="tag">Lesson 3 of 6</span>
-        <h2>Function Machines & Reverse Operations</h2>
-        <p>A <strong>Function Machine</strong> processes an Input to calculate an Output. To solve backwards, build a <strong>Reverse Function Machine</strong> using inverse operations!</p>
-
-        <div class="interactive-box">
-            <h4 style="margin-top: 0; text-align: center;">Live Classroom Machine Simulator</h4>
-            <div class="control-panel">
-                <div class="slider-group">
-                    <label>Forward Rule 1:</label>
-                    <select id="sim_op1">
-                        <option value="*">&times; (Multiply)</option>
-                        <option value="+">+ (Add)</option>
-                    </select>
-                    <input type="number" id="sim_val1" value="2">
-                </div>
-                <div class="slider-group">
-                    <label>Forward Rule 2:</label>
-                    <select id="sim_op2">
-                        <option value="+">+ (Add)</option>
-                        <option value="-">&minus; (Subtract)</option>
-                    </select>
-                    <input type="number" id="sim_val2" value="3">
-                </div>
-                <div class="slider-group">
-                    <label>Input Value:</label>
-                    <input type="number" id="sim_input" value="5" oninput="runSimulator()">
-                </div>
-            </div>
-
-            <div class="machine-wrapper">
-                <div class="machine-flow">
-                    <div class="term-node"><div class="term-circle" id="sim_disp_in">5</div><div class="term-label">Input</div></div>
-                    <span class="flow-arrow">&rarr;</span>
-                    <div class="machine-gear" id="sim_gear1">&times; 2</div>
-                    <span class="flow-arrow">&rarr;</span>
-                    <div class="machine-gear" id="sim_gear2">+ 3</div>
-                    <span class="flow-arrow">&rarr;</span>
-                    <div class="term-node"><div class="term-circle" style="background: var(--success);" id="sim_disp_out">13</div><div class="term-label">Output</div></div>
-                </div>
-
-                <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 15px 0;">
-
-                <h5 style="text-align: center; margin: 5px 0; color: var(--success);">Reverse Machine (Solving Backwards)</h5>
-                <div class="machine-flow">
-                    <div class="term-node"><div class="term-circle" style="background: var(--primary);" id="sim_rev_in">5</div><div class="term-label">Calculated Input</div></div>
-                    <span class="flow-arrow reverse">&larr;</span>
-                    <div class="machine-gear reverse-gear" id="sim_rev_gear1">&divide; 2</div>
-                    <span class="flow-arrow reverse">&larr;</span>
-                    <div class="machine-gear reverse-gear" id="sim_rev_gear2">&minus; 3</div>
-                    <span class="flow-arrow reverse">&larr;</span>
-                    <div class="term-node"><div class="term-circle" style="background: var(--success);" id="sim_rev_out">13</div><div class="term-label">Start Output</div></div>
-                </div>
-            </div>
+    <!-- SLIDE 3 -->
+    <div class="slide-card" id="slide3">
+        <div class="slide-header">
+            <h2 class="slide-title">Concept 3: Reverse Function Machines</h2>
+            <span class="slide-badge">Slide 3 of 6</span>
         </div>
 
-        <h3>Student Challenge: Build the Reverse Machine</h3>
-        <p>Forward Rule: <strong>"Multiply by 3, then add 2"</strong> | Target Output = <strong>20</strong></p>
-        
-        <div class="machine-wrapper">
+        <p style="font-size: 1.2rem;">Function machines convert inputs into outputs. To find an unknown starting term, build a <strong>Reverse Machine</strong> with inverse operations!</p>
+
+        <!-- DEMO EXAMPLE 3: Forward (*4, -3) vs Reverse (+3, /4) -->
+        <div class="interactive-section">
+            <h4 style="margin-top: 0; color: var(--accent-purple);">Forward Function Machine (&rarr;)</h4>
             <div class="machine-flow">
-                <div class="term-node"><div class="term-circle" style="background: var(--primary);">?</div><div class="term-label">Input</div></div>
-                <span class="flow-arrow reverse">&larr;</span>
-                <div class="builder-slot">
-                    <select id="m_op2">
-                        <option value="">Op</option>
-                        <option value="/">&divide;</option>
-                        <option value="-">&minus;</option>
-                        <option value="+">+</option>
-                    </select>
-                    <input type="number" id="m_val2" style="width: 50px;">
-                </div>
-                <span class="flow-arrow reverse">&larr;</span>
-                <div class="builder-slot">
-                    <select id="m_op1">
-                        <option value="">Op</option>
-                        <option value="/">&divide;</option>
-                        <option value="-">&minus;</option>
-                        <option value="+">+</option>
-                    </select>
-                    <input type="number" id="m_val1" style="width: 50px;">
-                </div>
-                <span class="flow-arrow reverse">&larr;</span>
-                <div class="term-node"><div class="term-circle" style="background: var(--success);">20</div><div class="term-label">Output</div></div>
+                <div class="term-node"><div class="term-circle">5</div><div class="term-label">Input</div></div>
+                <span style="font-size: 1.5rem;">&rarr;</span>
+                <div class="machine-gear">&times; 4</div>
+                <span style="font-size: 1.5rem;">&rarr;</span>
+                <div class="machine-gear">&minus; 3</div>
+                <span style="font-size: 1.5rem;">&rarr;</span>
+                <div class="term-node"><div class="term-circle" style="background: var(--accent-green);">17</div><div class="term-label">Output</div></div>
+            </div>
+
+            <h4 style="margin-top: 20px; color: var(--accent-green);">Reverse Function Machine (&larr;)</h4>
+            <div class="machine-flow">
+                <div class="term-node"><div class="term-circle">5</div><div class="term-label">Original Input</div></div>
+                <span style="font-size: 1.5rem; color: var(--accent-green);">&larr;</span>
+                <div class="machine-gear reverse">&divide; 4</div>
+                <span style="font-size: 1.5rem; color: var(--accent-green);">&larr;</span>
+                <div class="machine-gear reverse">+ 3</div>
+                <span style="font-size: 1.5rem; color: var(--accent-green);">&larr;</span>
+                <div class="term-node"><div class="term-circle" style="background: var(--accent-green);">17</div><div class="term-label">Target Output</div></div>
             </div>
         </div>
-        <p>What is the original Input number? <input type="number" id="s3_ans" style="width: 80px;"></p>
 
-        <button class="btn" onclick="checkStep3()">Check Reverse Machine</button>
-        <div class="feedback" id="fb3"></div>
+        <div class="teacher-script" id="script3">
+            <strong>🗣️ Demonstration Guide:</strong> "Emphasize two key rules for working backward: 1) Invert operations ($\times$ becomes $\div$, $-$ becomes $+$), and 2) Work backward right-to-left!"
+        </div>
 
-        <div class="nav-buttons">
-            <button class="btn btn-secondary" onclick="goToStep(2)">&larr; Back</button>
-            <button class="btn" id="next3" style="display:none;" onclick="goToStep(4)">Next Lesson &rarr;</button>
+        <div class="deck-nav">
+            <button class="btn-nav" onclick="changeSlide(-1)">&larr; Previous</button>
+            <button class="btn-nav btn-nav-primary" onclick="changeSlide(1)">Next Slide &rarr;</button>
         </div>
     </div>
 
-    <!-- STEP 4 -->
-    <div class="step-card" id="step4">
-        <span class="tag">Lesson 4 of 6</span>
-        <h2>Visual Patterns & Position Rules</h2>
-        <p>Instead of counting step-by-step, a <strong>position-to-term rule</strong> lets us calculate any term directly from its position number (<span class="math-var">n</span>)!</p>
-
-        <div class="pattern-display">
-            <div class="pattern-item">
-                <div class="dots-grid" style="grid-template-columns: repeat(2, 16px);">
-                    <div class="dot"></div><div class="dot"></div>
-                </div>
-                <small><strong>Pattern 1</strong><br>(2 dots)</small>
-            </div>
-            <div class="pattern-item">
-                <div class="dots-grid" style="grid-template-columns: repeat(2, 16px);">
-                    <div class="dot"></div><div class="dot"></div>
-                    <div class="dot new-dot"></div><div class="dot new-dot"></div>
-                </div>
-                <small><strong>Pattern 2</strong><br>(4 dots)</small>
-            </div>
-            <div class="pattern-item">
-                <div class="dots-grid" style="grid-template-columns: repeat(2, 16px);">
-                    <div class="dot"></div><div class="dot"></div>
-                    <div class="dot"></div><div class="dot"></div>
-                    <div class="dot new-dot"></div><div class="dot new-dot"></div>
-                </div>
-                <small><strong>Pattern 3</strong><br>(6 dots)</small>
-            </div>
+    <!-- SLIDE 4 -->
+    <div class="slide-card" id="slide4">
+        <div class="slide-header">
+            <h2 class="slide-title">Concept 4: Position-to-Term Rules</h2>
+            <span class="slide-badge">Slide 4 of 6</span>
         </div>
 
-        <p>Complete the position table below:</p>
+        <div class="hero-definition">
+            Instead of adding step-by-step, a <strong>Position-to-Term Rule</strong> lets us calculate any term directly from its position number (<span style="color: var(--accent-purple);">n</span>).
+        </div>
+
+        <!-- DEMO EXAMPLE 4: Multiples of 3 (3, 6, 9, 12) -->
         <table>
             <thead>
                 <tr>
-                    <th>Position Number (<span class="math-var">n</span>)</th>
+                    <th>Position (<span style="color: var(--accent-purple);">n</span>)</th>
                     <th>1</th>
                     <th>2</th>
                     <th>3</th>
@@ -671,316 +542,201 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Dot Count (Term)</strong></td>
-                    <td>2</td>
-                    <td>4</td>
+                    <td><strong>Term Value</strong></td>
+                    <td>3</td>
                     <td>6</td>
-                    <td><input type="number" id="s4_t1" style="width: 60px;"></td>
+                    <td>9</td>
+                    <td><input type="number" id="s4_t1" style="width: 80px;"></td>
                 </tr>
                 <tr>
-                    <td><strong>Rule Check (2 &times; <span class="math-var">n</span>)</strong></td>
-                    <td>2 &times; 1 = 2</td>
-                    <td>2 &times; 2 = 4</td>
-                    <td>2 &times; 3 = 6</td>
-                    <td><input type="number" id="s4_t2" style="width: 60px;"></td>
+                    <td><strong>Calculation</strong></td>
+                    <td>3 &times; 1 = 3</td>
+                    <td>3 &times; 2 = 6</td>
+                    <td>3 &times; 3 = 9</td>
+                    <td><input type="number" id="s4_t2" style="width: 80px;"></td>
                 </tr>
             </tbody>
         </table>
 
-        <p>The Position-to-Term Rule is: <strong>Term = Position Number &times; </strong> <input type="number" id="s4_rule" style="width: 60px;"></p>
+        <p style="font-size: 1.25rem; text-align: center;">
+            Rule: <strong>Term = Position Number &times; </strong> <input type="number" id="s4_rule" style="width: 80px;">
+        </p>
 
-        <button class="btn" onclick="checkStep4()">Check Answer</button>
-        <div class="feedback" id="fb4"></div>
+        <div class="interactive-section" style="text-align: center;">
+            <button class="btn-nav btn-nav-primary" onclick="checkSlide4()">Check Table</button>
+            <div class="feedback-banner" id="fb4"></div>
+        </div>
 
-        <div class="nav-buttons">
-            <button class="btn btn-secondary" onclick="goToStep(3)">&larr; Back</button>
-            <button class="btn" id="next4" style="display:none;" onclick="goToStep(5)">Next Lesson &rarr;</button>
+        <div class="deck-nav">
+            <button class="btn-nav" onclick="changeSlide(-1)">&larr; Previous</button>
+            <button class="btn-nav btn-nav-primary" onclick="changeSlide(1)">Next Slide &rarr;</button>
         </div>
     </div>
 
-    <!-- STEP 5 -->
-    <div class="step-card" id="step5">
-        <span class="tag">Lesson 5 of 6</span>
-        <h2>Mastering the Algebraic Rule (dn + c)</h2>
-        <p>To find any rule of the form $\text{Term} = \mathbf{d \cdot n + c}$:</p>
-        <ol>
-            <li><strong>Find the common difference ($d$):</strong> How much the sequence increases each step.</li>
-            <li><strong>Test with $n = 1$:</strong> Multiply $d \times 1$.</li>
-            <li><strong>Adjust ($c$):</strong> Add or subtract to match the very 1st term!</li>
-        </ol>
-
-        <div class="interactive-box">
-            <h4 style="margin-top: 0;">Interactive Explorer: Test Your Own Rule</h4>
-            <div class="control-panel">
-                <div class="slider-group">
-                    <label>Multiplier Difference ($d$): <span id="exp_d_val">3</span></label>
-                    <input type="range" id="exp_d" min="1" max="6" value="3" oninput="updateExplorer()">
-                </div>
-                <div class="slider-group">
-                    <label>Offset Adjustment ($c$): <span id="exp_c_val">+1</span></label>
-                    <input type="range" id="exp_c" min="-3" max="5" value="1" oninput="updateExplorer()">
-                </div>
-            </div>
-
-            <p style="text-align: center; font-size: 1.2rem; font-weight: bold; color: var(--primary);">
-                Current Rule: <span id="exp_rule_text">Term = 3n + 1</span>
-            </p>
-
-            <table id="exp_table">
-                <thead>
-                    <tr>
-                        <th>Position ($n$)</th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>10th Term</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Calculated Term</strong></td>
-                        <td id="exp_t1">4</td>
-                        <td id="exp_t2">7</td>
-                        <td id="exp_t3">10</td>
-                        <td id="exp_t10" style="background-color: var(--accent-bg); font-weight: bold;">31</td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- SLIDE 5 -->
+    <div class="slide-card" id="slide5">
+        <div class="slide-header">
+            <h2 class="slide-title">Concept 5: Deriving Linear Rules (dn + c)</h2>
+            <span class="slide-badge">Slide 5 of 6</span>
         </div>
 
-        <h3>Check Understanding:</h3>
-        <p>Given the sequence: <strong>4, 9, 14, 19, 24, ...</strong></p>
-        <p>1. What is the difference between terms ($d$)? <input type="number" id="s5_d" style="width: 70px;"></p>
-        <p>2. Select the correct position-to-term rule:</p>
-        <select id="s5_rule_sel" style="width: 100%; max-width: 300px;">
-            <option value="">-- Choose Rule --</option>
-            <option value="A">Term = 4n + 1</option>
-            <option value="B">Term = 5n - 1</option>
-            <option value="C">Term = 5n + 1</option>
-        </select>
-
-        <button class="btn" style="margin-top: 15px;" onclick="checkStep5()">Check Answers</button>
-        <div class="feedback" id="fb5"></div>
-
-        <div class="nav-buttons">
-            <button class="btn btn-secondary" onclick="goToStep(4)">&larr; Back</button>
-            <button class="btn" id="next5" style="display:none;" onclick="goToStep(6)">Final Challenge &rarr;</button>
+        <div class="hero-definition">
+            <strong>Formula Guide:</strong> $\text{Term} = \mathbf{d \cdot n + c}$
+            <br><small style="color: var(--text-muted);">&bull; $d$ = Difference between terms &nbsp;|&nbsp; &bull; $c$ = Adjustment constant</small>
         </div>
-    </div>
 
-    <!-- STEP 6 -->
-    <div class="step-card" id="step6">
-        <span class="tag">Lesson 6 of 6</span>
-        <h2>Final Codebreaker Challenge!</h2>
-        <p>Test your sequence mastery in this final multi-part challenge!</p>
-
-        <div class="interactive-box">
-            <p>A sequence starts as: <strong>3, 7, 11, 15, 19, ...</strong></p>
-            
-            <p><strong>A.</strong> What is the term-to-term rule? <input type="text" id="s6_q1" placeholder="e.g. Add 4" style="width: 140px;"></p>
-            
-            <p><strong>B.</strong> What is the algebraic position-to-term rule?</p>
-            <select id="s6_q2" style="width: 100%; max-width: 300px;">
+        <!-- DEMO EXAMPLE 5: Sequence 4, 10, 16, 22 -> 6n - 2 -->
+        <div class="interactive-section">
+            <p>Demonstration Sequence: <strong>4, 10, 16, 22, 28, ...</strong></p>
+            <p>1. Common Difference ($d$): <input type="number" id="s5_d" style="width: 80px;"></p>
+            <p>2. Select the correct position-to-term rule:</p>
+            <select id="s5_sel" style="width: 100%; max-width: 350px;">
                 <option value="">-- Select Rule --</option>
-                <option value="A">Term = 3n + 1</option>
-                <option value="B">Term = 4n - 1</option>
-                <option value="C">Term = 4n + 3</option>
+                <option value="A">Term = 6n + 2</option>
+                <option value="B">Term = 6n - 2</option>
+                <option value="C">Term = 4n + 2</option>
             </select>
-
-            <p><strong>C.</strong> Use your rule to calculate the <strong>50th term</strong>: <input type="number" id="s6_q3" style="width: 90px;"></p>
+            <br><br>
+            <button class="btn-nav btn-nav-primary" onclick="checkSlide5()">Validate Rule</button>
+            <div class="feedback-banner" id="fb5"></div>
         </div>
 
-        <button class="btn" onclick="checkStep6()">Submit Final Answers</button>
-        <div class="feedback" id="fb6"></div>
+        <div class="deck-nav">
+            <button class="btn-nav" onclick="changeSlide(-1)">&larr; Previous</button>
+            <button class="btn-nav btn-nav-primary" onclick="changeSlide(1)">Final Slide &rarr;</button>
+        </div>
+    </div>
 
-        <div class="nav-buttons">
-            <button class="btn btn-secondary" onclick="goToStep(5)">&larr; Back</button>
+    <!-- SLIDE 6 -->
+    <div class="slide-card" id="slide6">
+        <div class="slide-header">
+            <h2 class="slide-title">Class Demo Summary</h2>
+            <span class="slide-badge">Slide 6 of 6</span>
+        </div>
+
+        <div class="hero-definition">
+            <strong>Ready for the Activity!</strong><br>
+            Students will now apply these exact concepts on their practice worksheet using new problem sets.
+        </div>
+
+        <div class="interactive-section">
+            <h3 style="margin-top:0; color: var(--accent-purple);">Key Concepts Covered Today:</h3>
+            <ul style="font-size: 1.15rem; line-height: 1.8;">
+                <li><strong>Term-to-term rule:</strong> How to move from one term to the next.</li>
+                <li><strong>Function Machines:</strong> Inverting operations to solve backward.</li>
+                <li><strong>Position-to-term rule ($dn + c$):</strong> Finding any term directly using position number ($n$).</li>
+            </ul>
+        </div>
+
+        <div class="deck-nav">
+            <button class="btn-nav" onclick="changeSlide(-1)">&larr; Previous</button>
+            <div></div>
         </div>
     </div>
 </div>
 
 <script>
-    // Navigation Control
-    function goToStep(stepNum) {
-        document.querySelectorAll('.step-card').forEach(card => card.classList.remove('active'));
-        document.getElementById('step' + stepNum).classList.add('active');
-        document.getElementById('progressBar').style.width = (stepNum * (100 / 6)) + '%';
-        document.getElementById('stepSelector').value = stepNum;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    let currentSlide = 1;
+    const totalSlides = 6;
+
+    function changeSlide(direction) {
+        const newSlide = currentSlide + direction;
+        if (newSlide >= 1 && newSlide <= totalSlides) {
+            document.getElementById('slide' + currentSlide).classList.remove('active');
+            currentSlide = newSlide;
+            document.getElementById('slide' + currentSlide).classList.add('active');
+        }
     }
 
-    // Keyboard Arrow Navigation
-    document.addEventListener('keydown', function(event) {
-        const currentActive = document.querySelector('.step-card.active');
-        let currentStep = parseInt(currentActive.id.replace('step', ''));
-        if (event.key === 'ArrowRight' && currentStep < 6) {
-            goToStep(currentStep + 1);
-        } else if (event.key === 'ArrowLeft' && currentStep > 1) {
-            goToStep(currentStep - 1);
+    function toggleTeacherScript() {
+        const script = document.getElementById('script' + currentSlide);
+        if (script) {
+            script.classList.toggle('visible');
+        }
+    }
+
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === 'Space') {
+            changeSlide(1);
+        } else if (e.key === 'ArrowLeft') {
+            changeSlide(-1);
         }
     });
 
-    function resetCurrentStep() {
-        runSimulator();
-        updateExplorer();
-    }
-
-    // Step 1 Validation
-    function checkStep1() {
+    // Demo Slide 1 Validation (Jumps of 5)
+    function checkSlide1() {
         const q1 = parseFloat(document.getElementById('s1_q1').value);
         const q2 = parseFloat(document.getElementById('s1_q2').value);
         const rule = parseFloat(document.getElementById('s1_rule').value);
         const fb = document.getElementById('fb1');
 
-        if (q1 === 17 && q2 === 20 && rule === 3) {
-            fb.className = "feedback correct";
-            fb.innerHTML = "Great job! The terms go up by 3 each step (14 + 3 = 17, 17 + 3 = 20).";
-            document.getElementById('next1').style.display = "inline-block";
+        if (q1 === 24 && q2 === 29 && rule === 5) {
+            fb.className = "feedback-banner correct";
+            fb.innerText = "Correct! The sequence increases by 5 each term (19 + 5 = 24, 24 + 5 = 29).";
         } else {
-            fb.className = "feedback incorrect";
-            fb.innerHTML = "Not quite. Look at the jump from 5 to 8. How much is added? Add that same amount to 14!";
+            fb.className = "feedback-banner incorrect";
+            fb.innerText = "Re-check: The difference between terms is +5. Add 5 to 19!";
         }
     }
 
-    // Step 2 Validation
-    function checkStep2() {
+    // Demo Slide 2 Validation (*3 and -8)
+    function checkSlide2() {
         const q1 = parseFloat(document.getElementById('s2_q1').value);
         const q2 = parseFloat(document.getElementById('s2_q2').value);
         const q3 = parseFloat(document.getElementById('s2_q3').value);
         const q4 = parseFloat(document.getElementById('s2_q4').value);
         const fb = document.getElementById('fb2');
 
-        if (q1 === 8 && q2 === 16 && q3 === 24 && q4 === 18) {
-            fb.className = "feedback correct";
-            fb.innerHTML = "Awesome! You calculated both sequences accurately.";
-            document.getElementById('next2').style.display = "inline-block";
+        if (q1 === 6 && q2 === 18 && q3 === 32 && q4 === 24) {
+            fb.className = "feedback-banner correct";
+            fb.innerText = "Correct! Part 1: 2 x 3 = 6, 6 x 3 = 18 | Part 2: 40 - 8 = 32, 32 - 8 = 24.";
         } else {
-            fb.className = "feedback incorrect";
-            fb.innerHTML = "Re-check your steps:<br>• Part 1: 4 &times; 2 = 8, 8 &times; 2 = 16.<br>• Part 2: 30 - 6 = 24, 24 - 6 = 18.";
+            fb.className = "feedback-banner incorrect";
+            fb.innerText = "Check your calculations carefully.";
         }
     }
 
-    // Live Simulator Logic (Step 3)
-    function runSimulator() {
-        const op1 = document.getElementById('sim_op1').value;
-        const val1 = parseFloat(document.getElementById('sim_val1').value) || 0;
-        const op2 = document.getElementById('sim_op2').value;
-        const val2 = parseFloat(document.getElementById('sim_val2').value) || 0;
-        const inputVal = parseFloat(document.getElementById('sim_input').value) || 0;
-
-        document.getElementById('sim_gear1').innerHTML = (op1 === '*' ? '&times; ' : '+ ') + val1;
-        document.getElementById('sim_gear2').innerHTML = (op2 === '+' ? '+ ' : '&minus; ') + val2;
-
-        let intermediate = op1 === '*' ? inputVal * val1 : inputVal + val1;
-        let finalOut = op2 === '+' ? intermediate + val2 : intermediate - val2;
-
-        document.getElementById('sim_disp_in').innerText = inputVal;
-        document.getElementById('sim_disp_out').innerText = finalOut;
-
-        // Reverse Display Setup
-        document.getElementById('sim_rev_out').innerText = finalOut;
-        document.getElementById('sim_rev_gear1').innerHTML = (op2 === '+' ? '&minus; ' : '+ ') + val2;
-        document.getElementById('sim_rev_gear2').innerHTML = (op1 === '*' ? '&divide; ' : '&minus; ') + val1;
-        document.getElementById('sim_rev_in').innerText = inputVal;
-    }
-
-    function checkStep3() {
-        const op1 = document.getElementById('m_op1').value;
-        const val1 = parseFloat(document.getElementById('m_val1').value);
-        const op2 = document.getElementById('m_op2').value;
-        const val2 = parseFloat(document.getElementById('m_val2').value);
-        const ans = parseFloat(document.getElementById('s3_ans').value);
-        const fb = document.getElementById('fb3');
-
-        const isMachineCorrect = (op1 === '-' && val1 === 2) && (op2 === '/' && val2 === 3);
-        
-        if (isMachineCorrect && ans === 6) {
-            fb.className = "feedback correct";
-            fb.innerHTML = "Perfect! You built the reverse machine (Subtract 2, then Divide by 3) and solved Input = 6!";
-            document.getElementById('next3').style.display = "inline-block";
-        } else {
-            fb.className = "feedback incorrect";
-            fb.innerHTML = "Remember: Invert the last operation first! First undo '+ 2' with '- 2' (20 - 2 = 18), then undo '&times; 3' with '&divide; 3' (18 &divide; 3 = 6).";
-        }
-    }
-
-    // Step 4 Validation
-    function checkStep4() {
+    // Demo Slide 4 Validation (*3)
+    function checkSlide4() {
         const t1 = parseInt(document.getElementById('s4_t1').value);
         const t2 = parseInt(document.getElementById('s4_t2').value);
         const rule = parseInt(document.getElementById('s4_rule').value);
         const fb = document.getElementById('fb4');
 
-        if (t1 === 8 && t2 === 8 && rule === 2) {
-            fb.className = "feedback correct";
-            fb.innerHTML = "Excellent! Pattern 4 has 8 dots, and the multiplier is 2.";
-            document.getElementById('next4').style.display = "inline-block";
+        if (t1 === 12 && t2 === 12 && rule === 3) {
+            fb.className = "feedback-banner correct";
+            fb.innerText = "Correct! 4 x 3 = 12, so the position multiplier is 3.";
         } else {
-            fb.className = "feedback incorrect";
-            fb.innerHTML = "Pattern 4 adds 2 more dots to Pattern 3 (6 + 2 = 8). Since 4 &times; 2 = 8, the multiplier is 2.";
+            fb.className = "feedback-banner incorrect";
+            fb.innerText = "Check position 4: 4 x 3 = 12.";
         }
     }
 
-    // Step 5 Dynamic Explorer
-    function updateExplorer() {
-        const d = parseInt(document.getElementById('exp_d').value);
-        const c = parseInt(document.getElementById('exp_c').value);
-
-        document.getElementById('exp_d_val').innerText = d;
-        document.getElementById('exp_c_val').innerText = c >= 0 ? '+' + c : c;
-
-        const cText = c === 0 ? '' : (c > 0 ? ' + ' + c : ' - ' + Math.abs(c));
-        document.getElementById('exp_rule_text').innerText = 'Term = ' + d + 'n' + cText;
-
-        document.getElementById('exp_t1').innerText = (d * 1) + c;
-        document.getElementById('exp_t2').innerText = (d * 2) + c;
-        document.getElementById('exp_t3').innerText = (d * 3) + c;
-        document.getElementById('exp_t10').innerText = (d * 10) + c;
-    }
-
-    function checkStep5() {
+    // Demo Slide 5 Validation (6n - 2)
+    function checkSlide5() {
         const d = parseInt(document.getElementById('s5_d').value);
-        const ruleSel = document.getElementById('s5_rule_sel').value;
+        const sel = document.getElementById('s5_sel').value;
         const fb = document.getElementById('fb5');
 
-        if (d === 5 && ruleSel === 'B') {
-            fb.className = "feedback correct";
-            fb.innerHTML = "Spot on! The sequence increases by 5 each step (5n). Since 5(1) - 1 = 4, the rule is 5n - 1.";
-            document.getElementById('next5').style.display = "inline-block";
+        if (d === 6 && sel === 'B') {
+            fb.className = "feedback-banner correct";
+            fb.innerText = "Correct! Difference = 6 (6n). Since 6(1) - 2 = 4, the rule is 6n - 2.";
         } else {
-            fb.className = "feedback incorrect";
-            fb.innerHTML = "Check your difference: 9 - 4 = 5. So the rule starts with 5n. Since 5 &times; 1 = 5, subtract 1 to get 4!";
+            fb.className = "feedback-banner incorrect";
+            fb.innerText = "Difference is 10 - 4 = 6. So rule starts with 6n.";
         }
     }
-
-    // Step 6 Final Quiz Validation
-    function checkStep6() {
-        const q1 = document.getElementById('s6_q1').value.trim().toLowerCase();
-        const q2 = document.getElementById('s6_q2').value;
-        const q3 = parseInt(document.getElementById('s6_q3').value);
-        const fb = document.getElementById('fb6');
-
-        const isQ1Correct = q1.includes('add 4') || q1.includes('+4') || q1.includes('+ 4');
-        const isQ2Correct = (q2 === 'B');
-        const isQ3Correct = (q3 === 199);
-
-        if (isQ1Correct && isQ2Correct && isQ3Correct) {
-            fb.className = "feedback correct";
-            fb.innerHTML = "🎉 Congratulations! You solved all parts correctly and mastered Grade 6 Sequence Rules!";
-        } else {
-            fb.className = "feedback incorrect";
-            fb.innerHTML = "Review notes:<br>" +
-                "• Part A: The difference is +4 ('Add 4').<br>" +
-                "• Part B: 4(1) - 1 = 3, so Rule B (4n - 1) is correct.<br>" +
-                "• Part C: For the 50th term: 4(50) - 1 = 200 - 1 = 199.";
-        }
-    }
-
-    // Initialize simulators on load
-    window.onload = function() {
-        runSimulator();
-        updateExplorer();
-    };
 </script>
 
 </body>
