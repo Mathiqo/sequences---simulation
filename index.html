@@ -144,7 +144,7 @@
             margin-bottom: 30px;
         }
 
-        /* Large Screen Visual Jump Diagram */
+        /* Jump Diagram */
         .jump-diagram {
             display: flex;
             align-items: center;
@@ -208,14 +208,14 @@
             font-weight: bold;
         }
 
-        /* Interactive Inputs for Presentation Smartboards */
+        /* Interactive Inputs */
         input[type="number"], input[type="text"], select {
             background: #0f172a;
             border: 2px solid var(--border-color);
             color: #ffffff;
-            padding: 10px 16px;
+            padding: 10px 14px;
             border-radius: 12px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             text-align: center;
             transition: all 0.2s;
@@ -233,6 +233,15 @@
             padding: 24px;
             border-radius: 16px;
             margin-top: 25px;
+        }
+
+        .practice-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            font-size: 1.15rem;
+            flex-wrap: wrap;
         }
 
         .feedback-banner {
@@ -382,7 +391,6 @@
             Each number in the sequence is called a <strong>term</strong>.
         </div>
 
-        <!-- DEMO EXAMPLE 1: Jumps of +5 -->
         <div class="jump-diagram">
             <div class="term-node">
                 <div class="term-circle">4</div>
@@ -435,37 +443,56 @@
         </div>
     </div>
 
-    <!-- SLIDE 2 -->
+    <!-- SLIDE 2 (UPDATED WITH FILL-IN RULE INPUTS) -->
     <div class="slide-card" id="slide2">
         <div class="slide-header">
-            <h2 class="slide-title">Concept 2: Generating Sequences</h2>
+            <h2 class="slide-title">Concept 2: Generating Sequences & Rules</h2>
             <span class="slide-badge">Slide 2 of 6</span>
         </div>
 
         <div class="hero-definition">
-            Given a <strong>Start Term</strong> and a <strong>Rule</strong>, we can generate a sequence forward.
-        </div>
-
-        <!-- DEMO EXAMPLE 2: Decreasing sequence -->
-        <div class="jump-diagram">
-            <div class="term-node"><div class="term-circle">50</div><div class="term-label">1st Term</div></div>
-            <div class="jump-arrow"><span>-7</span><div class="arrow-head">&rarr;</div></div>
-            <div class="term-node"><div class="term-circle">43</div><div class="term-label">2nd Term</div></div>
-            <div class="jump-arrow"><span>-7</span><div class="arrow-head">&rarr;</div></div>
-            <div class="term-node"><div class="term-circle">36</div><div class="term-label">3rd Term</div></div>
-            <div class="jump-arrow"><span>-7</span><div class="arrow-head">&rarr;</div></div>
-            <div class="term-node"><div class="term-circle">29</div><div class="term-label">4th Term</div></div>
-        </div>
-
-        <div class="teacher-script" id="script2">
-            <strong>🗣️ Demonstration Guide:</strong> "Show students that rules can involve subtraction (shrinking sequences) or multiplication (rapidly growing sequences)."
+            Fill in the <strong>Rule Operation & Value</strong> as well as the <strong>Missing Terms</strong> for each sequence below.
         </div>
 
         <div class="interactive-section">
-            <p><strong>1.</strong> Start Term = <strong>2</strong>, Rule = <strong>Multiply by 3</strong> &rarr; First 3 terms: 2, <input type="number" id="s2_q1" style="width: 80px;">, <input type="number" id="s2_q2" style="width: 80px;"></p>
-            <p><strong>2.</strong> Start Term = <strong>40</strong>, Rule = <strong>Subtract 8</strong> &rarr; First 3 terms: 40, <input type="number" id="s2_q3" style="width: 80px;">, <input type="number" id="s2_q4" style="width: 80px;"></p>
-            <button class="btn-nav btn-nav-primary" onclick="checkSlide2()" style="padding: 10px 20px;">Check Answers</button>
+            <!-- Row 1: Multiply Rule -->
+            <div class="practice-row">
+                <span><strong>1.</strong> Start Term = <strong>2</strong>, Rule =</span>
+                <select id="s2_op1" style="width: 140px;">
+                    <option value="">-- Op --</option>
+                    <option value="Multiply by">Multiply by</option>
+                    <option value="Add">Add</option>
+                    <option value="Subtract">Subtract</option>
+                </select>
+                <input type="number" id="s2_val1" style="width: 70px;" placeholder="Num">
+                <span>&rarr; First 3 terms: 2, </span>
+                <input type="number" id="s2_q1" style="width: 80px;" placeholder="2nd">
+                <span>,</span>
+                <input type="number" id="s2_q2" style="width: 80px;" placeholder="3rd">
+            </div>
+
+            <!-- Row 2: Subtract Rule -->
+            <div class="practice-row">
+                <span><strong>2.</strong> Start Term = <strong>40</strong>, Rule =</span>
+                <select id="s2_op2" style="width: 140px;">
+                    <option value="">-- Op --</option>
+                    <option value="Subtract">Subtract</option>
+                    <option value="Add">Add</option>
+                    <option value="Multiply by">Multiply by</option>
+                </select>
+                <input type="number" id="s2_val2" style="width: 70px;" placeholder="Num">
+                <span>&rarr; First 3 terms: 40, </span>
+                <input type="number" id="s2_q3" style="width: 80px;" placeholder="2nd">
+                <span>,</span>
+                <input type="number" id="s2_q4" style="width: 80px;" placeholder="3rd">
+            </div>
+
+            <button class="btn-nav btn-nav-primary" onclick="checkSlide2()" style="padding: 10px 20px; margin-top: 15px;">Check Answers</button>
             <div class="feedback-banner" id="fb2"></div>
+        </div>
+
+        <div class="teacher-script" id="script2">
+            <strong>🗣️ Demonstration Guide:</strong> "Ask a volunteer student to come up to the smartboard and fill in the missing rule operation, value, and terms for both questions!"
         </div>
 
         <div class="deck-nav">
@@ -483,7 +510,6 @@
 
         <p style="font-size: 1.2rem;">Function machines convert inputs into outputs. To find an unknown starting term, build a <strong>Reverse Machine</strong> with inverse operations!</p>
 
-        <!-- DEMO EXAMPLE 3: Forward (*4, -3) vs Reverse (+3, /4) -->
         <div class="interactive-section">
             <h4 style="margin-top: 0; color: var(--accent-purple);">Forward Function Machine (&rarr;)</h4>
             <div class="machine-flow">
@@ -529,7 +555,6 @@
             Instead of adding step-by-step, a <strong>Position-to-Term Rule</strong> lets us calculate any term directly from its position number (<span style="color: var(--accent-purple);">n</span>).
         </div>
 
-        <!-- DEMO EXAMPLE 4: Multiples of 3 (3, 6, 9, 12) -->
         <table>
             <thead>
                 <tr>
@@ -585,7 +610,6 @@
             <br><small style="color: var(--text-muted);">&bull; $d$ = Difference between terms &nbsp;|&nbsp; &bull; $c$ = Adjustment constant</small>
         </div>
 
-        <!-- DEMO EXAMPLE 5: Sequence 4, 10, 16, 22 -> 6n - 2 -->
         <div class="interactive-section">
             <p>Demonstration Sequence: <strong>4, 10, 16, 22, 28, ...</strong></p>
             <p>1. Common Difference ($d$): <input type="number" id="s5_d" style="width: 80px;"></p>
@@ -674,7 +698,7 @@
         }
     });
 
-    // Demo Slide 1 Validation (Jumps of 5)
+    // Slide 1 Validation
     function checkSlide1() {
         const q1 = parseFloat(document.getElementById('s1_q1').value);
         const q2 = parseFloat(document.getElementById('s1_q2').value);
@@ -690,24 +714,33 @@
         }
     }
 
-    // Demo Slide 2 Validation (*3 and -8)
+    // Slide 2 Validation (Rule Fill-in + Terms)
     function checkSlide2() {
+        const op1 = document.getElementById('s2_op1').value;
+        const val1 = parseFloat(document.getElementById('s2_val1').value);
         const q1 = parseFloat(document.getElementById('s2_q1').value);
         const q2 = parseFloat(document.getElementById('s2_q2').value);
+
+        const op2 = document.getElementById('s2_op2').value;
+        const val2 = parseFloat(document.getElementById('s2_val2').value);
         const q3 = parseFloat(document.getElementById('s2_q3').value);
         const q4 = parseFloat(document.getElementById('s2_q4').value);
+
         const fb = document.getElementById('fb2');
 
-        if (q1 === 6 && q2 === 18 && q3 === 32 && q4 === 24) {
+        const isRow1Correct = (op1 === 'Multiply by' && val1 === 3 && q1 === 6 && q2 === 18);
+        const isRow2Correct = (op2 === 'Subtract' && val2 === 8 && q3 === 32 && q4 === 24);
+
+        if (isRow1Correct && isRow2Correct) {
             fb.className = "feedback-banner correct";
-            fb.innerText = "Correct! Part 1: 2 x 3 = 6, 6 x 3 = 18 | Part 2: 40 - 8 = 32, 32 - 8 = 24.";
+            fb.innerText = "Awesome! Both rules and sequence terms are completely correct!";
         } else {
             fb.className = "feedback-banner incorrect";
-            fb.innerText = "Check your calculations carefully.";
+            fb.innerText = "Check your inputs:<br>• Row 1: Rule = Multiply by 3 → Terms: 6, 18.<br>• Row 2: Rule = Subtract 8 → Terms: 32, 24.";
         }
     }
 
-    // Demo Slide 4 Validation (*3)
+    // Slide 4 Validation
     function checkSlide4() {
         const t1 = parseInt(document.getElementById('s4_t1').value);
         const t2 = parseInt(document.getElementById('s4_t2').value);
@@ -723,7 +756,7 @@
         }
     }
 
-    // Demo Slide 5 Validation (6n - 2)
+    // Slide 5 Validation
     function checkSlide5() {
         const d = parseInt(document.getElementById('s5_d').value);
         const sel = document.getElementById('s5_sel').value;
